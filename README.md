@@ -121,9 +121,9 @@ Senior Mobile Engineer с 6 годами коммерческой разрабо
 
 ## Contact
 
-- 📧 Email: _добавить_
-- 💼 LinkedIn: _добавить_
-- 📱 Telegram: _добавить_
+- 📧 Email: [pavelunin@icloud.com](mailto:pavelunin@icloud.com)
+- 💼 LinkedIn: [pavel-lunin-832796210](https://www.linkedin.com/in/pavel-lunin-832796210)
+- 📱 Telegram: [@Lunin_Pavel](https://t.me/Lunin_Pavel)
 - 🌐 GitHub: [Pavel-Lunin](https://github.com/Pavel-Lunin)
 
 ---
