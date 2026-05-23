@@ -1,0 +1,108 @@
+# ----- OS / macOS -----
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# ----- IDE / Editors -----
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+*.swp
+*.swo
+*~
+.history/
+
+# ----- Claude / агентские служебные файлы -----
+.claude/
+
+# ----- Node.js -----
+node_modules/
+dist/
+build/
+.npm
+.yarn/
+yarn-error.log
+npm-debug.log*
+yarn-debug.log*
+.pnp.*
+
+# ----- Python -----
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# ----- Terraform -----
+.terraform/
+.terraform.lock.hcl
+*.tfstate
+*.tfstate.*
+*.tfstate.backup
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+*.tfvars
+*.tfvars.json
+!*.tfvars.example
+!*.tfvars.json.example
+.terraformrc
+terraform.rc
+
+# ----- Ansible -----
+*.retry
+.vault_pass
+inventory.local
+
+# ----- Docker -----
+.docker/
+
+# ----- Secrets / credentials -----
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+*.pfx
+*.p12
+secrets/
+credentials.json
+service-account*.json
+
+# ----- Build artifacts -----
+target/
+out/
+bin/
+obj/
+*.class
+*.jar
+*.war
+*.o
+*.a
+*.so
+
+# ----- Logs -----
+logs/
+*.log
+
+# ----- Misc -----
+tmp/
+.cache/
