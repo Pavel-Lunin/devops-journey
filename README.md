@@ -40,29 +40,29 @@ Senior Mobile Engineer с 6 годами коммерческой разрабо
 
 ## Roadmap
 
-| Фаза | Месяцы | Фокус | Ключевые результаты |
-|---|---|---|---|
-| **Фаза 1** | 1–3 | Discovery + первый production improvement | VPS документирован, Docker-builder для RN, мониторинг, первый production fix в Jenkins pipeline на работе |
-| **Фаза 2** | 4–6 | Ansible + GitLab CI + AWS SAA | VPS воспроизводится через Ansible, полный GitLab CI demo, сертификат AWS SAA |
-| **Фаза 3** | 7–9 | Kubernetes + CKA | Self-hosted K8s кластер на YC, GitOps через ArgoCD, сертификат CKA |
-| **Фаза 4** | 10–12 | Job hunt | Резюме, system design, STAR stories, активные интервью, оффер |
+| Фаза       | Месяцы | Фокус                                     | Ключевые результаты                                                                                       |
+| ---------- | ------ | ----------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| **Фаза 1** | 1–3    | Discovery + первый production improvement | VPS документирован, Docker-builder для RN, мониторинг, первый production fix в Jenkins pipeline на работе |
+| **Фаза 2** | 4–6    | Ansible + GitLab CI + AWS SAA             | VPS воспроизводится через Ansible, полный GitLab CI demo, сертификат AWS SAA                              |
+| **Фаза 3** | 7–9    | Kubernetes + CKA                          | Self-hosted K8s кластер на YC, GitOps через ArgoCD, сертификат CKA                                        |
+| **Фаза 4** | 10–12  | Job hunt                                  | Резюме, system design, STAR stories, активные интервью, оффер                                             |
 
 ---
 
 ## Projects
 
-| # | Project | Status | Phase | Описание |
-|---|---|---|---|---|
-| 01 | [VPS Infrastructure](./01-vps-infrastructure/) | 🔄 In Progress | 1 | Документация существующего self-hosted VPS (nginx + apache + Amnezia VPN) |
-| 02 | [Monitoring Stack](./02-monitoring-stack/) | 📋 Planned | 1 | Prometheus + Grafana + Node Exporter + Alertmanager для VPS |
-| 03 | [Docker RN Builder](./03-docker-rn-builder/) | 📋 Planned | 1 | Reproducible Docker image для сборки React Native (Android) |
-| 04 | [Bash Toolkit](./04-bash-toolkit/) | 🔄 In Progress | 1 | Production-ready bash-скрипты автоматизации, ShellCheck-clean |
-| 05 | [Yandex Cloud Setup](./05-yandex-cloud-setup/) | 📋 Planned | 1 | Manual setup VPS-стека на Yandex Cloud (Compute, VPC, NLB, Object Storage) |
-| 06 | [Terraform YC](./06-terraform-yc/) | 📋 Planned | 2 | Тот же setup через Terraform с модулями и remote state |
-| 07 | [Ansible Playbooks](./07-ansible-playbooks/) | 📋 Planned | 2 | Idempotent roles для развёртывания всего VPS-стека "с нуля" |
-| 08 | [GitLab CI/CD Demo](./08-gitlab-cicd-demo/) | 📋 Planned | 2 | Полный pipeline: build → test → security scan → deploy |
-| 09 | [K8s Self-Hosted](./09-k8s-self-hosted/) | 📋 Planned | 3 | **Флагман:** self-hosted Kubernetes на YC через kubespray + ArgoCD + observability |
-| 10 | [Mobile CI/CD Patterns](./10-mobile-cicd-patterns/) | 📋 Planned | continuous | Обезличенные architectural patterns из enterprise mobile-опыта |
+| #   | Project                                             | Status         | Phase      | Описание                                                                           |
+| --- | --------------------------------------------------- | -------------- | ---------- | ---------------------------------------------------------------------------------- |
+| 01  | [VPS Infrastructure](./01-vps-infrastructure/)      | 🔄 In Progress | 1          | Документация существующего self-hosted VPS (nginx + apache + Amnezia VPN)          |
+| 02  | [Monitoring Stack](./02-monitoring-stack/)          | 📋 Planned     | 1          | Prometheus + Grafana + Node Exporter + Alertmanager для VPS                        |
+| 03  | [Docker RN Builder](./03-docker-rn-builder/)        | 📋 Planned     | 1          | Reproducible Docker image для сборки React Native (Android)                        |
+| 04  | [Bash Toolkit](./04-bash-toolkit/)                  | 🔄 In Progress | 1          | Production-ready bash-скрипты автоматизации, ShellCheck-clean                      |
+| 05  | [Yandex Cloud Setup](./05-yandex-cloud-setup/)      | 📋 Planned     | 1          | Manual setup VPS-стека на Yandex Cloud (Compute, VPC, NLB, Object Storage)         |
+| 06  | [Terraform YC](./06-terraform-yc/)                  | 📋 Planned     | 2          | Тот же setup через Terraform с модулями и remote state                             |
+| 07  | [Ansible Playbooks](./07-ansible-playbooks/)        | 📋 Planned     | 2          | Idempotent roles для развёртывания всего VPS-стека "с нуля"                        |
+| 08  | [GitLab CI/CD Demo](./08-gitlab-cicd-demo/)         | 📋 Planned     | 2          | Полный pipeline: build → test → security scan → deploy                             |
+| 09  | [K8s Self-Hosted](./09-k8s-self-hosted/)            | 📋 Planned     | 3          | **Флагман:** self-hosted Kubernetes на YC через kubespray + ArgoCD + observability |
+| 10  | [Mobile CI/CD Patterns](./10-mobile-cicd-patterns/) | 📋 Planned     | continuous | Обезличенные architectural patterns из enterprise mobile-опыта                     |
 
 Легенда: 📋 Planned · 🔄 In Progress · ✅ Complete
 
@@ -71,33 +71,40 @@ Senior Mobile Engineer с 6 годами коммерческой разрабо
 ## Tech Stack
 
 **Languages**
+
 - TypeScript (production, 6+ лет)
 - Bash (intermediate, активно прокачиваю)
 - Python (basic, для скриптов и automation)
 - Groovy (Jenkins pipelines)
 
 **Containers & Orchestration**
+
 - Docker (intermediate)
 - Kubernetes (learning)
 
 **Infrastructure as Code**
+
 - Terraform (learning)
 - Ansible (learning)
 
 **CI/CD**
+
 - Jenkins (production)
 - GitHub Actions (intermediate)
 - GitLab CI (learning)
 
 **Cloud**
+
 - Yandex Cloud (learning)
 - AWS (learning, target — SAA сертификат)
 
 **Observability**
+
 - Prometheus, Grafana (learning, hands-on в проекте 02)
 - Sentry, Dynatrace (production-опыт с mobile)
 
 **Mobile (текущая экспертиза)**
+
 - React Native, Fastlane
 - Native iOS / Android build-системы (Xcode, Gradle)
 - Jenkins-based mobile pipelines на enterprise scale
@@ -114,6 +121,7 @@ Senior Mobile Engineer с 6 годами коммерческой разрабо
 - Prometheus + Grafana основы — подготовка к проекту 02
 
 📚 **Reading:**
+
 - "The Linux Command Line" — William Shotts
 - Prometheus docs + "Prometheus: Up & Running"
 
