@@ -65,7 +65,7 @@
 
 Минимальный набор шагов на чистой Ubuntu 24.04 (high-level):
 
-1. Базовый hardening: создать non-root sudoers, развернуть SSH-ключи, **отключить `PasswordAuthentication` и `PermitRootLogin`** (на действующем сервере оба сейчас включены — см. раздел *What I learned*).
+1. Базовый hardening: создать non-root sudoers, развернуть SSH-ключи, перевести SSH на key-only доступ и staged-отключение root login (на действующем сервере `PasswordAuthentication` и `PermitRootLogin` сейчас включены — см. раздел *What I learned*).
 2. `apt install nginx apache2 ufw docker.io` + NVM + Node.js + `npm i -g pm2`.
 3. Apache: три vhost'а на 8080/8081/8082, в идеале на `127.0.0.1:*` вместо `*:*`.
 4. nginx: server-блок на :80 с `upstream` round-robin на три Apache-порта.
@@ -91,17 +91,17 @@
 
 Главный вывод диагностики: **production VPS, отработавший без перезагрузки 113 дней, при этом имеет несколько системных недочётов, которые нельзя увидеть, пока специально не пройдёшься чек-листом.** Этот разрыв между «работает» и «настроено правильно» — и есть зона роста, ради которой делается весь journal.
 
-Конкретно зафиксировано (и пойдёт в backlog исправлений):
+Конкретно зафиксировано:
 
 - **TLS не настроен** — nginx слушает только :80, сертификата Let's Encrypt нет. Это первое, что нужно поднять (certbot + автообновление).
-- **SSH-конфигурация слабая:** `PasswordAuthentication yes` + drop-in cloud-init с `PermitRootLogin yes` оставляют поверхность атаки. `/var/log/btmp` за время аптайма распух до **451 MB** неудачных попыток входа — наглядная иллюстрация, почему fail2ban + ключи-only это не теория.
+- **SSH-конфигурация была слабой — исправлено 2026-06-11:** исходно `PasswordAuthentication yes` + drop-in cloud-init с `PermitRootLogin yes` оставляли поверхность атаки. `/var/log/btmp` за время аптайма распух до **451 MB** неудачных попыток входа — наглядная иллюстрация, почему fail2ban + key-only доступ это не теория. Исправление выполнено staged: создан backup `/etc/ssh/sshd_config.bak.20260611T045928Z` и `/etc/ssh/sshd_config.d.bak.20260611T045928Z`, добавлен ранний drop-in `/etc/ssh/sshd_config.d/01-hardening.conf`, проверен `sshd -t`, применён `systemctl reload ssh` без restart. Финальный effective config: `PubkeyAuthentication yes`, `PasswordAuthentication no`, `KbdInteractiveAuthentication no`, `PermitRootLogin no`. Новый вход `devops` по ключу проверен, root SSH login отклоняется, временный `NOPASSWD` для `devops` удалён. `ufw`, Docker, `amn0` и UDP-порты AmneziaWG (`42817/udp`, `34367/udp`) не менялись.
 - **Apache торчит наружу** на портах 8080/8081/8082 (bind на `*`, не `127.0.0.1`). Архитектурно правильно — оставить наружу только nginx, бэкенд держать на loopback. Это правится одной строкой в `ports.conf`.
 - **Swap отсутствует** при 1.9 GiB RAM. При пике (например, рост памяти у Node.js + AmneziaWG-userspace процессов) — гарантированный OOM-kill. Минимум 1–2 GiB swap-файла стоит добавить.
 - **PM2-процессы бота в статусе `stopped`** при включённом `pm2-devops.service` — расхождение между saved-state и runtime. Урок: PM2 без мониторинга это «думаю, что работает».
 - **38 непримененных обновлений** (включая `containerd 1.7 → 2.2`, `gnutls`, `apparmor`). Unattended-upgrades либо не настроены, либо настроены не на тот набор.
 - **userspace WireGuard** (`wireguard-go` через AmneziaWG) — отдельная категория знаний: модуль ядра `wireguard` не подгружен, всё работает в userspace внутри контейнеров с монтированием `/lib/modules`. Это компромисс ради DPI-resistance, но он стоит ~317 MiB RAM и ~8500 CPU-minutes за 3 месяца.
 
-Эти пункты становятся roadmap'ом для project 07 (Ansible-роли): каждое исправление должно быть кодифицировано как идемпотентная роль, а не разовый ручной фикс.
+Оставшиеся пункты становятся roadmap'ом для project 07 (Ansible-роли), а исправленный SSH hardening должен быть кодифицирован как идемпотентная роль, а не оставаться ручным изменением.
 
 ## References
 
