@@ -1,0 +1,15 @@
+### sudo iptables -t nat -S
+-P PREROUTING ACCEPT
+-P INPUT ACCEPT
+-P OUTPUT ACCEPT
+-P POSTROUTING ACCEPT
+-N DOCKER
+-A PREROUTING -m addrtype --dst-type LOCAL -j DOCKER
+-A OUTPUT ! -d 127.0.0.0/8 -m addrtype --dst-type LOCAL -j DOCKER
+-A POSTROUTING -s 172.29.172.0/24 ! -o amn0 -j MASQUERADE
+-A POSTROUTING -s 172.17.0.0/16 ! -o docker0 -j MASQUERADE
+-A DOCKER -i amn0 -j RETURN
+-A DOCKER -i docker0 -j RETURN
+-A DOCKER ! -i amn0 -p udp -m udp --dport 42817 -j DNAT --to-destination 172.29.172.2:42817
+-A DOCKER ! -i amn0 -p udp -m udp --dport 34367 -j DNAT --to-destination 172.29.172.3:34367
+EXIT:0

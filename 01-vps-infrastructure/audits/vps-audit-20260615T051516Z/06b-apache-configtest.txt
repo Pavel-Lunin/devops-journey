@@ -1,0 +1,3 @@
+### sudo apachectl configtest
+Syntax OK
+EXIT:0

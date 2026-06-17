@@ -1,0 +1,10 @@
+### ip -br addr
+lo               UNKNOWN        127.0.0.1/8 ::1/128 
+ens3             UP             104.128.138.246/24 fe80::5054:ff:fe01:a8ed/64 
+docker0          UP             172.17.0.1/16 fe80::18f8:b6ff:fe7b:fc5f/64 
+amn0             UP             172.29.172.1/24 fe80::a026:baff:fe67:95f9/64 
+vethf9688a2@if2  UP             fe80::e8be:8ff:fed2:d8fd/64 
+veth43b77cf@if3  UP             fe80::4ef:91ff:fe88:dcd0/64 
+veth3d040a6@if2  UP             fe80::8c08:55ff:fed8:2f16/64 
+veth7962e31@if2  UP             fe80::486b:56ff:fe09:22ff/64 
+vethdec5c2c@if3  UP             fe80::9078:6fff:fe2b:d6c/64 

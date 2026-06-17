@@ -1,0 +1,89 @@
+### sudo nginx -t
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+EXIT:0
+### sudo apachectl configtest
+Syntax OK
+EXIT:0
+### sudo grep nginx server_name/listen/proxy_pass/upstream
+/etc/nginx/sites-enabled/upstream:1:upstream apache2 {
+/etc/nginx/sites-enabled/default:22:	listen 80 default_server;
+/etc/nginx/sites-enabled/default:23:	listen [::]:80 default_server;
+/etc/nginx/sites-enabled/default:27:	# listen 443 ssl default_server;
+/etc/nginx/sites-enabled/default:28:	# listen [::]:443 ssl default_server;
+/etc/nginx/sites-enabled/default:46:	server_name _;
+/etc/nginx/sites-enabled/default:49:		proxy_pass http://apache2;
+/etc/nginx/sites-enabled/default:81:#	listen 80;
+/etc/nginx/sites-enabled/default:82:#	listen [::]:80;
+/etc/nginx/sites-enabled/default:84:#	server_name example.com;
+/etc/nginx/nginx.conf:23:	# server_names_hash_bucket_size 64;
+/etc/nginx/nginx.conf:24:	# server_name_in_redirect off;
+/etc/nginx/nginx.conf:73:#		listen     localhost:110;
+/etc/nginx/nginx.conf:79:#		listen     localhost:143;
+EXIT:0
+### sudo grep apache Listen/VirtualHost/DocumentRoot/ServerName
+/etc/apache2/ports.conf:2:# have to change the VirtualHost statement in
+/etc/apache2/ports.conf:5:Listen 8080
+/etc/apache2/ports.conf:6:Listen 8081
+/etc/apache2/ports.conf:7:Listen 8082
+/etc/apache2/ports.conf:10:	Listen 443
+/etc/apache2/ports.conf:14:	Listen 443
+/etc/apache2/sites-enabled/8080.conf:1:<VirtualHost *:8080>
+/etc/apache2/sites-enabled/8080.conf:3:    DocumentRoot /var/www/html
+/etc/apache2/sites-enabled/8080.conf:13:</VirtualHost>
+/etc/apache2/sites-enabled/8081.conf:1:<VirtualHost *:8081>
+/etc/apache2/sites-enabled/8081.conf:3:    DocumentRoot /var/www/html
+/etc/apache2/sites-enabled/8081.conf:13:</VirtualHost>
+/etc/apache2/sites-enabled/8082.conf:1:<VirtualHost *:8082>
+/etc/apache2/sites-enabled/8082.conf:3:    DocumentRoot /var/www/html
+/etc/apache2/sites-enabled/8082.conf:13:</VirtualHost>
+EXIT:0
+### curl -fsSI http://127.0.0.1/ || true
+HTTP/1.1 200 OK
+Server: nginx/1.24.0 (Ubuntu)
+Date: Mon, 15 Jun 2026 05:23:46 GMT
+Content-Type: text/html
+Content-Length: 2307
+Connection: keep-alive
+Last-Modified: Fri, 08 May 2026 11:16:36 GMT
+ETag: "903-6514c87b5b475"
+Accept-Ranges: bytes
+Vary: Accept-Encoding
+
+EXIT:0
+### curl -fsSI http://127.0.0.1:8080/ || true
+HTTP/1.1 200 OK
+Date: Mon, 15 Jun 2026 05:23:57 GMT
+Server: Apache/2.4.58 (Ubuntu)
+Last-Modified: Fri, 08 May 2026 11:16:36 GMT
+ETag: "903-6514c87b5b475"
+Accept-Ranges: bytes
+Content-Length: 2307
+Vary: Accept-Encoding
+Content-Type: text/html
+
+EXIT:0
+### curl -fsSI http://127.0.0.1:8081/ || true
+HTTP/1.1 200 OK
+Date: Mon, 15 Jun 2026 05:24:08 GMT
+Server: Apache/2.4.58 (Ubuntu)
+Last-Modified: Fri, 08 May 2026 11:16:36 GMT
+ETag: "903-6514c87b5b475"
+Accept-Ranges: bytes
+Content-Length: 2307
+Vary: Accept-Encoding
+Content-Type: text/html
+
+EXIT:0
+### curl -fsSI http://127.0.0.1:8082/ || true
+HTTP/1.1 200 OK
+Date: Mon, 15 Jun 2026 05:24:24 GMT
+Server: Apache/2.4.58 (Ubuntu)
+Last-Modified: Fri, 08 May 2026 11:16:36 GMT
+ETag: "903-6514c87b5b475"
+Accept-Ranges: bytes
+Content-Length: 2307
+Vary: Accept-Encoding
+Content-Type: text/html
+
+EXIT:0

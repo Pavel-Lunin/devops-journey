@@ -1,0 +1,77 @@
+### free -h
+               total        used        free      shared  buff/cache   available
+Mem:           1.9Gi       806Mi       143Mi       1.3Mi       1.2Gi       1.1Gi
+Swap:             0B          0B          0B
+
+### swapon --show
+
+### df -hT
+Filesystem     Type   Size  Used Avail Use% Mounted on
+/dev/root      ext4    18G  7.2G   11G  41% /
+tmpfs          tmpfs  984M     0  984M   0% /dev/shm
+tmpfs          tmpfs  394M  996K  393M   1% /run
+tmpfs          tmpfs  5.0M     0  5.0M   0% /run/lock
+/dev/vda16     ext4   881M  107M  713M  13% /boot
+/dev/vda15     vfat   105M  6.2M   99M   6% /boot/efi
+tmpfs          tmpfs  197M  8.0K  197M   1% /run/user/1000
+
+### lsblk -f
+NAME    FSTYPE FSVER LABEL           UUID                                 FSAVAIL FSUSE% MOUNTPOINTS
+vda                                                                                      
+├─vda1  ext4   1.0   cloudimg-rootfs 191d6a8d-4f6a-4255-ad8e-ffa7f8b085b8   10.7G    40% /
+├─vda14                                                                                  
+├─vda15 vfat   FAT32 UEFI            F628-BB27                              98.2M     6% /boot/efi
+└─vda16 ext4   1.0   BOOT            e5242d95-26f3-4503-a690-58eaf3bd9319  712.4M    12% /boot
+
+### vmstat 1 5
+procs -----------memory---------- ---swap-- -----io---- -system-- -------cpu-------
+ r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st gu
+ 0  0      0 145052  85888 1142332    0    0     3    25 1555    9  1  2 96  0  1  0
+ 0  0      0 144828  85888 1142420    0    0     0     0 1067 1414  2  1 97  0  1  0
+ 0  0      0 146976  85888 1142420    0    0     0     0 2973 3685  1  3 95  0  1  0
+ 3  0      0 146596  85888 1142420    0    0     0     0 4803 5801  3  5 91  0  2  0
+ 0  0      0 141460  85888 1142428    0    0     0     0 2617 3131  4  3 93  0  1  0
+
+### ps aux --sort=-%mem | head -n 20
+USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root      100287  5.5 16.2 2009412 327960 ?      Sl   Feb02 10668:36 wireguard-go wg0
+devops     39219  0.1  2.2 1714528 44540 ?       Ssl  Jan30 239:34 PM2 v6.0.14: God Daemon (/home/devops/.pm2)
+root      988956  0.0  2.1 103576 43876 ?        S<s  Jun09   4:57 /usr/lib/systemd/systemd-journald
+root        1827  0.0  1.9 2414508 39252 ?       Ssl  Jan28 125:54 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+root     3108735  1.2  1.7 2181776 35348 ?       Sl   May08 660:55 amneziawg-go awg0
+devops   1169224  0.0  1.3  35280 27688 ?        Ss   Apr07  14:57 /opt/unbound/sbin/unbound -d -c /opt/unbound/etc/unbound/unbound.conf
+root       27968  0.1  1.2 1876752 25984 ?       Ssl  Jan30 353:06 /usr/bin/containerd
+root     1169203  0.0  0.6 1238640 13956 ?       Sl   Apr07  57:43 /usr/bin/containerd-shim-runc-v2 -namespace moby -id a74e3fe17faa4e719476618db7c714bb4495dffbd25d0763335738716ef73d6e -address /run/containerd/containerd.sock
+root           1  0.0  0.6  22228 13440 ?        Ss   Jan28  10:14 /usr/lib/systemd/systemd --system --deserialize=68
+systemd+  989113  0.0  0.6  21592 12928 ?        Ss   Jun09   0:01 /usr/lib/systemd/systemd-resolved
+devops     38413  0.0  0.5  20020 10624 ?        Ss   Jan30   0:02 /usr/lib/systemd/systemd --user --deserialize=10
+root     1362025  0.0  0.4  14212  9984 ?        Ss   05:15   0:00 sshd: devops [priv]
+root     1361569  0.0  0.4  14212  9856 ?        Ss   05:11   0:00 sshd: devops [priv]
+devops   4025830  0.0  0.4  39256  9532 ?        Ssl  May22   1:33 /home/devops/.vscode-server/code-f6cfa2ea2403534de03f069bdf160d06451ed282 --cli-data-dir /home/devops/.vscode-server/cli agent host
+root         420  0.0  0.4 107032  9344 ?        Ssl  Jan28   0:00 /usr/bin/python3 /usr/share/unattended-upgrades/unattended-upgrade-shutdown --wait-for-signal
+systemd+  988945  0.0  0.4  19104  9216 ?        Ss   Jun09   0:01 /usr/lib/systemd/systemd-networkd
+root     1362331  1.0  0.4  12152  8448 ?        Ss   05:15   0:00 sshd: [accepted]
+devops   1361591  0.0  0.4   9104  8320 pts/0    Ss+  05:11   0:00 -bash
+devops   1362047  0.2  0.4   9084  8320 pts/1    Ss   05:15   0:00 -bash
+
+### ps aux --sort=-%cpu | head -n 20
+USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root      100287  5.5 16.2 2009412 327960 ?      Sl   Feb02 10668:36 wireguard-go wg0
+root     3108735  1.2  1.7 2181776 35348 ?       Sl   May08 660:55 amneziawg-go awg0
+sshd     1362332  1.1  0.2  12152  6016 ?        S    05:15   0:00 sshd: [net]
+root     1362331  1.0  0.4  12152  8448 ?        Ss   05:15   0:00 sshd: [accepted]
+root     1362283  0.6  0.3  17284  7808 ?        Ss   05:15   0:00 /usr/lib/systemd/systemd-hostnamed
+devops   1362047  0.2  0.4   9084  8320 pts/1    Ss   05:15   0:00 -bash
+root       27968  0.1  1.2 1876752 25984 ?       Ssl  Jan30 353:06 /usr/bin/containerd
+devops     39219  0.1  2.2 1714528 44540 ?       Ssl  Jan30 239:34 PM2 v6.0.14: God Daemon (/home/devops/.pm2)
+devops   1361590  0.1  0.3  14472  6440 ?        S    05:11   0:00 sshd: devops@pts/0
+root     1362025  0.0  0.4  14212  9984 ?        Ss   05:15   0:00 sshd: devops [priv]
+root        1827  0.0  1.9 2414508 39252 ?       Ssl  Jan28 125:54 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+root     1169203  0.0  0.6 1238640 13956 ?       Sl   Apr07  57:43 /usr/bin/containerd-shim-runc-v2 -namespace moby -id a74e3fe17faa4e719476618db7c714bb4495dffbd25d0763335738716ef73d6e -address /run/containerd/containerd.sock
+root      988956  0.0  2.1 103576 43876 ?        S<s  Jun09   4:57 /usr/lib/systemd/systemd-journald
+root          16  0.0  0.0      0     0 ?        S    Jan28  42:05 [ksoftirqd/0]
+root      100163  0.0  0.4 1238640 8248 ?        Sl   Feb02  35:32 /usr/bin/containerd-shim-runc-v2 -namespace moby -id 7f558ff770e0a5f65e63560cdedbe6d27f80019bd5807becbce161c7c5a2bf83 -address /run/containerd/containerd.sock
+root     3108371  0.0  0.4 1238640 8256 ?        Sl   May08   9:26 /usr/bin/containerd-shim-runc-v2 -namespace moby -id a69e84407ac7734a5146a66a610b9f87eb5f5693f525fe2f34126ff1623c91ca -address /run/containerd/containerd.sock
+devops   1361591  0.0  0.4   9104  8320 pts/0    Ss+  05:11   0:00 -bash
+devops   1169224  0.0  1.3  35280 27688 ?        Ss   Apr07  14:57 /opt/unbound/sbin/unbound -d -c /opt/unbound/etc/unbound/unbound.conf
+root     1350000  0.0  0.0      0     0 ?        I    01:29   0:01 [kworker/0:2-events]

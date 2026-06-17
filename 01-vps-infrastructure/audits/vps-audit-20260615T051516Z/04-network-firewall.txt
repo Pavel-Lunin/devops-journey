@@ -1,0 +1,225 @@
+### ip -br addr
+lo               UNKNOWN        127.0.0.1/8 ::1/128 
+ens3             UP             104.128.138.246/24 fe80::5054:ff:fe01:a8ed/64 
+docker0          UP             172.17.0.1/16 fe80::18f8:b6ff:fe7b:fc5f/64 
+amn0             UP             172.29.172.1/24 fe80::a026:baff:fe67:95f9/64 
+vethf9688a2@if2  UP             fe80::e8be:8ff:fed2:d8fd/64 
+veth43b77cf@if3  UP             fe80::4ef:91ff:fe88:dcd0/64 
+veth3d040a6@if2  UP             fe80::8c08:55ff:fed8:2f16/64 
+veth7962e31@if2  UP             fe80::486b:56ff:fe09:22ff/64 
+vethdec5c2c@if3  UP             fe80::9078:6fff:fe2b:d6c/64 
+EXIT:0
+
+### ip route
+default via 104.128.138.1 dev ens3 proto static 
+104.128.138.0/24 dev ens3 proto kernel scope link src 104.128.138.246 
+172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 
+172.29.172.0/24 dev amn0 proto kernel scope link src 172.29.172.1 
+EXIT:0
+
+### ss -tulpen
+Netid State  Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess                                                                                                                            
+udp   UNCONN 0      0         127.0.0.54:53         0.0.0.0:*    uid:992 ino:40055204 sk:24 cgroup:/system.slice/systemd-resolved.service <->                                                      
+udp   UNCONN 0      0      127.0.0.53%lo:53         0.0.0.0:*    uid:992 ino:40055202 sk:25 cgroup:/system.slice/systemd-resolved.service <->                                                      
+udp   UNCONN 0      0            0.0.0.0:34367      0.0.0.0:*    ino:28614797 sk:1007 cgroup:/system.slice/docker.service <->                                                                      
+udp   UNCONN 0      0            0.0.0.0:42817      0.0.0.0:*    ino:850303 sk:1001 cgroup:/system.slice/docker.service <->                                                                        
+udp   UNCONN 0      0               [::]:34367         [::]:*    ino:28614798 sk:1008 cgroup:/system.slice/docker.service v6only:1 <->                                                             
+udp   UNCONN 0      0               [::]:42817         [::]:*    ino:850304 sk:1002 cgroup:/system.slice/docker.service v6only:1 <->                                                               
+tcp   LISTEN 0      4096   127.0.0.53%lo:53         0.0.0.0:*    uid:992 ino:40055203 sk:26 cgroup:/system.slice/systemd-resolved.service <->                                                      
+tcp   LISTEN 0      4096       127.0.0.1:24297      0.0.0.0:*    ino:204048 sk:6 cgroup:/system.slice/containerd.service <->                                                                       
+tcp   LISTEN 0      4096      127.0.0.54:53         0.0.0.0:*    uid:992 ino:40055205 sk:27 cgroup:/system.slice/systemd-resolved.service <->                                                      
+tcp   LISTEN 0      128        127.0.0.1:11437      0.0.0.0:*    users:(("code-f6cfa2ea24",pid=4025830,fd=12)) uid:1000 ino:33830764 sk:20 cgroup:/user.slice/user-1000.slice/session-619.scope <->
+tcp   LISTEN 0      128          0.0.0.0:22         0.0.0.0:*    ino:40643056 sk:28 cgroup:/system.slice/ssh.service <->                                                                           
+tcp   LISTEN 0      511          0.0.0.0:80         0.0.0.0:*    ino:40340228 sk:29 cgroup:/system.slice/nginx.service <->                                                                         
+tcp   LISTEN 0      511                *:8082             *:*    ino:38907283 sk:2a cgroup:/system.slice/apache2.service v6only:0 <->                                                              
+tcp   LISTEN 0      511                *:8080             *:*    ino:38907275 sk:2b cgroup:/system.slice/apache2.service v6only:0 <->                                                              
+tcp   LISTEN 0      511                *:8081             *:*    ino:38907279 sk:2c cgroup:/system.slice/apache2.service v6only:0 <->                                                              
+tcp   LISTEN 0      128             [::]:22            [::]:*    ino:40643058 sk:2d cgroup:/system.slice/ssh.service v6only:1 <->                                                                  
+tcp   LISTEN 0      511             [::]:80            [::]:*    ino:40340229 sk:2e cgroup:/system.slice/nginx.service v6only:1 <->                                                                
+EXIT:0
+
+### sudo ufw status verbose
+Status: active
+Logging: on (high)
+Default: deny (incoming), allow (outgoing), deny (routed)
+New profiles: skip
+
+To                         Action      From
+--                         ------      ----
+42817/udp                  ALLOW IN    Anywhere                  
+443/tcp                    ALLOW IN    91.217.194.8              
+22/tcp                     ALLOW IN    46.242.14.134             
+22/tcp                     ALLOW IN    Anywhere                  
+80/tcp                     ALLOW IN    Anywhere                  
+443/tcp                    ALLOW IN    Anywhere                  
+42817/udp (v6)             ALLOW IN    Anywhere (v6)             
+22/tcp (v6)                ALLOW IN    Anywhere (v6)             
+80/tcp (v6)                ALLOW IN    Anywhere (v6)             
+443/tcp (v6)               ALLOW IN    Anywhere (v6)             
+
+EXIT:0
+
+### sudo iptables -S
+-P INPUT DROP
+-P FORWARD DROP
+-P OUTPUT ACCEPT
+-N DOCKER
+-N DOCKER-BRIDGE
+-N DOCKER-CT
+-N DOCKER-FORWARD
+-N DOCKER-ISOLATION-STAGE-1
+-N DOCKER-ISOLATION-STAGE-2
+-N DOCKER-USER
+-N ufw-after-forward
+-N ufw-after-input
+-N ufw-after-logging-forward
+-N ufw-after-logging-input
+-N ufw-after-logging-output
+-N ufw-after-output
+-N ufw-before-forward
+-N ufw-before-input
+-N ufw-before-logging-forward
+-N ufw-before-logging-input
+-N ufw-before-logging-output
+-N ufw-before-output
+-N ufw-logging-allow
+-N ufw-logging-deny
+-N ufw-not-local
+-N ufw-reject-forward
+-N ufw-reject-input
+-N ufw-reject-output
+-N ufw-skip-to-policy-forward
+-N ufw-skip-to-policy-input
+-N ufw-skip-to-policy-output
+-N ufw-track-forward
+-N ufw-track-input
+-N ufw-track-output
+-N ufw-user-forward
+-N ufw-user-input
+-N ufw-user-limit
+-N ufw-user-limit-accept
+-N ufw-user-logging-forward
+-N ufw-user-logging-input
+-N ufw-user-logging-output
+-N ufw-user-output
+-A INPUT -p icmp -m icmp --icmp-type 8 -j DROP
+-A INPUT -j ufw-before-logging-input
+-A INPUT -j ufw-before-input
+-A INPUT -j ufw-after-input
+-A INPUT -j ufw-after-logging-input
+-A INPUT -j ufw-reject-input
+-A INPUT -j ufw-track-input
+-A FORWARD -j DOCKER-USER
+-A FORWARD -j DOCKER-FORWARD
+-A FORWARD -j DOCKER-ISOLATION-STAGE-1
+-A FORWARD -o docker0 -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+-A FORWARD -o docker0 -j DOCKER
+-A FORWARD -i docker0 ! -o docker0 -j ACCEPT
+-A FORWARD -i docker0 -o docker0 -j ACCEPT
+-A FORWARD -j ufw-before-logging-forward
+-A FORWARD -j ufw-before-forward
+-A FORWARD -j ufw-after-forward
+-A FORWARD -j ufw-after-logging-forward
+-A FORWARD -j ufw-reject-forward
+-A FORWARD -j ufw-track-forward
+-A OUTPUT -j ufw-before-logging-output
+-A OUTPUT -j ufw-before-output
+-A OUTPUT -j ufw-after-output
+-A OUTPUT -j ufw-after-logging-output
+-A OUTPUT -j ufw-reject-output
+-A OUTPUT -j ufw-track-output
+-A DOCKER -d 172.29.172.3/32 ! -i amn0 -o amn0 -p udp -m udp --dport 34367 -j ACCEPT
+-A DOCKER -d 172.29.172.2/32 ! -i amn0 -o amn0 -p udp -m udp --dport 42817 -j ACCEPT
+-A DOCKER ! -i docker0 -o docker0 -j DROP
+-A DOCKER ! -i amn0 -o amn0 -j DROP
+-A DOCKER-BRIDGE -o docker0 -j DOCKER
+-A DOCKER-BRIDGE -o amn0 -j DOCKER
+-A DOCKER-CT -o docker0 -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+-A DOCKER-CT -o amn0 -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+-A DOCKER-FORWARD -j DOCKER-CT
+-A DOCKER-FORWARD -j DOCKER-ISOLATION-STAGE-1
+-A DOCKER-FORWARD -j DOCKER-BRIDGE
+-A DOCKER-FORWARD -i docker0 -j ACCEPT
+-A DOCKER-FORWARD -i amn0 -j ACCEPT
+-A DOCKER-ISOLATION-STAGE-1 -i docker0 ! -o docker0 -j DOCKER-ISOLATION-STAGE-2
+-A DOCKER-ISOLATION-STAGE-1 -i amn0 ! -o amn0 -j DOCKER-ISOLATION-STAGE-2
+-A DOCKER-ISOLATION-STAGE-2 -o amn0 -j DROP
+-A DOCKER-ISOLATION-STAGE-2 -o docker0 -j DROP
+-A ufw-after-input -p udp -m udp --dport 137 -j ufw-skip-to-policy-input
+-A ufw-after-input -p udp -m udp --dport 138 -j ufw-skip-to-policy-input
+-A ufw-after-input -p tcp -m tcp --dport 139 -j ufw-skip-to-policy-input
+-A ufw-after-input -p tcp -m tcp --dport 445 -j ufw-skip-to-policy-input
+-A ufw-after-input -p udp -m udp --dport 67 -j ufw-skip-to-policy-input
+-A ufw-after-input -p udp -m udp --dport 68 -j ufw-skip-to-policy-input
+-A ufw-after-input -m addrtype --dst-type BROADCAST -j ufw-skip-to-policy-input
+-A ufw-after-logging-forward -j LOG --log-prefix "[UFW BLOCK] "
+-A ufw-after-logging-input -j LOG --log-prefix "[UFW BLOCK] "
+-A ufw-after-logging-output -j LOG --log-prefix "[UFW ALLOW] "
+-A ufw-before-forward -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+-A ufw-before-forward -p icmp -m icmp --icmp-type 3 -j ACCEPT
+-A ufw-before-forward -p icmp -m icmp --icmp-type 11 -j ACCEPT
+-A ufw-before-forward -p icmp -m icmp --icmp-type 12 -j ACCEPT
+-A ufw-before-forward -p icmp -m icmp --icmp-type 8 -j ACCEPT
+-A ufw-before-forward -j ufw-user-forward
+-A ufw-before-input -i lo -j ACCEPT
+-A ufw-before-input -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+-A ufw-before-input -m conntrack --ctstate INVALID -j ufw-logging-deny
+-A ufw-before-input -m conntrack --ctstate INVALID -j DROP
+-A ufw-before-input -p icmp -m icmp --icmp-type 3 -j ACCEPT
+-A ufw-before-input -p icmp -m icmp --icmp-type 11 -j ACCEPT
+-A ufw-before-input -p icmp -m icmp --icmp-type 12 -j ACCEPT
+-A ufw-before-input -p icmp -m icmp --icmp-type 8 -j ACCEPT
+-A ufw-before-input -p udp -m udp --sport 67 --dport 68 -j ACCEPT
+-A ufw-before-input -j ufw-not-local
+-A ufw-before-input -d 224.0.0.251/32 -p udp -m udp --dport 5353 -j ACCEPT
+-A ufw-before-input -d 239.255.255.250/32 -p udp -m udp --dport 1900 -j ACCEPT
+-A ufw-before-input -j ufw-user-input
+-A ufw-before-logging-forward -m limit --limit 3/min --limit-burst 10 -j LOG --log-prefix "[UFW AUDIT] "
+-A ufw-before-logging-input -m limit --limit 3/min --limit-burst 10 -j LOG --log-prefix "[UFW AUDIT] "
+-A ufw-before-logging-output -m limit --limit 3/min --limit-burst 10 -j LOG --log-prefix "[UFW AUDIT] "
+-A ufw-before-output -o lo -j ACCEPT
+-A ufw-before-output -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+-A ufw-before-output -j ufw-user-output
+-A ufw-logging-allow -j LOG --log-prefix "[UFW ALLOW] "
+-A ufw-logging-deny -m conntrack --ctstate INVALID -j LOG --log-prefix "[UFW AUDIT INVALID] "
+-A ufw-logging-deny -j LOG --log-prefix "[UFW BLOCK] "
+-A ufw-not-local -m addrtype --dst-type LOCAL -j RETURN
+-A ufw-not-local -m addrtype --dst-type MULTICAST -j RETURN
+-A ufw-not-local -m addrtype --dst-type BROADCAST -j RETURN
+-A ufw-not-local -m limit --limit 3/min --limit-burst 10 -j ufw-logging-deny
+-A ufw-not-local -j DROP
+-A ufw-skip-to-policy-forward -j DROP
+-A ufw-skip-to-policy-input -j DROP
+-A ufw-skip-to-policy-output -j ACCEPT
+-A ufw-track-output -p tcp -m conntrack --ctstate NEW -j ACCEPT
+-A ufw-track-output -p udp -m conntrack --ctstate NEW -j ACCEPT
+-A ufw-user-input -p udp -m udp --dport 42817 -j ACCEPT
+-A ufw-user-input -s 91.217.194.8/32 -p tcp -m tcp --dport 443 -j ACCEPT
+-A ufw-user-input -s 46.242.14.134/32 -p tcp -m tcp --dport 22 -j ACCEPT
+-A ufw-user-input -p tcp -m tcp --dport 22 -j ACCEPT
+-A ufw-user-input -p tcp -m tcp --dport 80 -j ACCEPT
+-A ufw-user-input -p tcp -m tcp --dport 443 -j ACCEPT
+-A ufw-user-limit -m limit --limit 3/min -j LOG --log-prefix "[UFW LIMIT BLOCK] "
+-A ufw-user-limit -j REJECT --reject-with icmp-port-unreachable
+-A ufw-user-limit-accept -j ACCEPT
+EXIT:0
+
+### sudo iptables -t nat -S
+-P PREROUTING ACCEPT
+-P INPUT ACCEPT
+-P OUTPUT ACCEPT
+-P POSTROUTING ACCEPT
+-N DOCKER
+-A PREROUTING -m addrtype --dst-type LOCAL -j DOCKER
+-A OUTPUT ! -d 127.0.0.0/8 -m addrtype --dst-type LOCAL -j DOCKER
+-A POSTROUTING -s 172.29.172.0/24 ! -o amn0 -j MASQUERADE
+-A POSTROUTING -s 172.17.0.0/16 ! -o docker0 -j MASQUERADE
+-A DOCKER -i amn0 -j RETURN
+-A DOCKER -i docker0 -j RETURN
+-A DOCKER ! -i amn0 -p udp -m udp --dport 42817 -j DNAT --to-destination 172.29.172.2:42817
+-A DOCKER ! -i amn0 -p udp -m udp --dport 34367 -j DNAT --to-destination 172.29.172.3:34367
+EXIT:0
+
+### sudo iptables -S DOCKER-USER || true
+-N DOCKER-USER
+EXIT:0

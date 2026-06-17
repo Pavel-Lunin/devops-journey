@@ -1,0 +1,98 @@
+### systemctl --failed --no-pager
+  UNIT               LOAD   ACTIVE SUB    DESCRIPTION
+● pm2-devops.service loaded failed failed PM2 process manager
+● rc-local.service   loaded failed failed rc-local.service
+
+Legend: LOAD   → Reflects whether the unit definition was properly loaded.
+        ACTIVE → The high-level unit activation state, i.e. generalization of SUB.
+        SUB    → The low-level unit activation state, values depend on unit type.
+
+2 loaded units listed.
+
+### systemctl status ssh nginx apache2 docker pm2-devops --no-pager -l || true
+● ssh.service - OpenBSD Secure Shell server
+     Loaded: loaded (/usr/lib/systemd/system/ssh.service; enabled; preset: enabled)
+     Active: active (running) since Thu 2026-04-30 06:31:35 UTC; 1 month 15 days ago
+       Docs: man:sshd(8)
+             man:sshd_config(5)
+    Process: 1110698 ExecReload=/usr/sbin/sshd -t (code=exited, status=0/SUCCESS)
+    Process: 1110699 ExecReload=/bin/kill -HUP $MAINPID (code=exited, status=0/SUCCESS)
+   Main PID: 2616477 (sshd)
+      Tasks: 1 (limit: 2339)
+     Memory: 20.3M (peak: 123.0M)
+        CPU: 4h 21min 5.461s
+     CGroup: /system.slice/ssh.service
+             └─2616477 "sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups"
+
+Warning: some journal files were not opened due to insufficient permissions.
+
+● nginx.service - A high performance web server and a reverse proxy server
+     Loaded: loaded (/usr/lib/systemd/system/nginx.service; enabled; preset: enabled)
+     Active: active (running) since Wed 2026-06-10 06:38:19 UTC; 4 days ago
+       Docs: man:nginx(8)
+    Process: 1052010 ExecStartPre=/usr/sbin/nginx -t -q -g daemon on; master_process on; (code=exited, status=0/SUCCESS)
+    Process: 1052014 ExecStart=/usr/sbin/nginx -g daemon on; master_process on; (code=exited, status=0/SUCCESS)
+   Main PID: 1052039 (nginx)
+      Tasks: 3 (limit: 2339)
+     Memory: 3.7M (peak: 5.0M)
+        CPU: 2.831s
+     CGroup: /system.slice/nginx.service
+             ├─1052039 "nginx: master process /usr/sbin/nginx -g daemon on; master_process on;"
+             ├─1052042 "nginx: worker process"
+             └─1052043 "nginx: worker process"
+
+● apache2.service - The Apache HTTP Server
+     Loaded: loaded (/usr/lib/systemd/system/apache2.service; enabled; preset: enabled)
+     Active: active (running) since Sat 2026-06-06 06:20:33 UTC; 1 week 1 day ago
+       Docs: https://httpd.apache.org/docs/2.4/
+   Main PID: 790514 (apache2)
+      Tasks: 55 (limit: 2339)
+     Memory: 10.6M (peak: 11.2M)
+        CPU: 1min 6.205s
+     CGroup: /system.slice/apache2.service
+             ├─790514 /usr/sbin/apache2 -k start
+             ├─790516 /usr/sbin/apache2 -k start
+             └─790517 /usr/sbin/apache2 -k start
+
+● docker.service - Docker Application Container Engine
+     Loaded: loaded (/usr/lib/systemd/system/docker.service; enabled; preset: enabled)
+     Active: active (running) since Wed 2026-01-28 17:13:27 UTC; 4 months 15 days ago
+TriggeredBy: ● docker.socket
+       Docs: https://docs.docker.com
+   Main PID: 1827 (dockerd)
+      Tasks: 45
+     Memory: 53.1M (peak: 338.4M)
+        CPU: 2h 9min 41.445s
+     CGroup: /system.slice/docker.service
+             ├─   1827 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+             ├─ 100246 /usr/bin/docker-proxy -proto udp -host-ip 0.0.0.0 -host-port 42817 -container-ip 172.29.172.2 -container-port 42817 -use-listen-fd
+             ├─ 100251 /usr/bin/docker-proxy -proto udp -host-ip :: -host-port 42817 -container-ip 172.29.172.2 -container-port 42817 -use-listen-fd
+             ├─3108469 /usr/bin/docker-proxy -proto udp -host-ip 0.0.0.0 -host-port 34367 -container-ip 172.29.172.3 -container-port 34367 -use-listen-fd
+             └─3108475 /usr/bin/docker-proxy -proto udp -host-ip :: -host-port 34367 -container-ip 172.29.172.3 -container-port 34367 -use-listen-fd
+
+Warning: some journal files were not opened due to insufficient permissions.
+
+× pm2-devops.service - PM2 process manager
+     Loaded: loaded (/etc/systemd/system/pm2-devops.service; enabled; preset: enabled)
+     Active: failed (Result: protocol) since Sat 2026-01-31 08:42:40 UTC; 4 months 13 days ago
+       Docs: https://pm2.keymetrics.io/
+        CPU: 313ms
+
+Warning: some journal files were not opened due to insufficient permissions.
+
+### journalctl -p warning -b --no-pager | tail -n 300
+Hint: You are currently not seeing messages from other users and the system.
+      Users in groups 'adm', 'systemd-journal' can see all messages.
+      Pass -q to turn off this notice.
+May 22 04:31:05 vm3849819.firstbyte.club sudo[4028142]: pam_unix(sudo:auth): conversation failed
+May 22 04:31:05 vm3849819.firstbyte.club sudo[4028142]: pam_unix(sudo:auth): auth could not identify password for [devops]
+May 22 04:31:18 vm3849819.firstbyte.club sudo[4028189]:   devops : a password is required ; PWD=/home/devops ; USER=root ; COMMAND=/usr/bin/ss -tulnp
+May 22 04:33:32 vm3849819.firstbyte.club sudo[4028672]:   devops : a password is required ; PWD=/home/devops ; USER=root ; COMMAND=/usr/sbin/ufw status verbose
+May 22 04:33:39 vm3849819.firstbyte.club sudo[4028706]:   devops : a password is required ; PWD=/home/devops ; USER=root ; COMMAND=/usr/bin/tail -20 /var/log/auth.log
+Jun 07 14:54:45 vm3849819.firstbyte.club sudo[876646]:   devops : a password is required ; TTY=pts/0 ; PWD=/home/devops ; USER=root ; COMMAND=/usr/bin/true
+Jun 07 14:54:59 vm3849819.firstbyte.club sudo[876647]: pam_unix(sudo:auth): conversation failed
+Jun 07 14:54:59 vm3849819.firstbyte.club sudo[876647]: pam_unix(sudo:auth): auth could not identify password for [devops]
+Jun 07 14:54:59 vm3849819.firstbyte.club sudo[876647]:   devops : 2 incorrect password attempts ; TTY=pts/0 ; PWD=/home/devops ; USER=root ; COMMAND=/usr/sbin/sshd -T
+Jun 11 05:01:43 vm3849819.firstbyte.club sudo[1110784]:   devops : a password is required ; TTY=pts/1 ; PWD=/home/devops ; USER=root ; COMMAND=/usr/bin/true
+Jun 11 05:01:57 vm3849819.firstbyte.club sudo[1110832]:   devops : a password is required ; TTY=pts/2 ; PWD=/home/devops ; USER=root ; COMMAND=/usr/bin/true
+Jun 15 05:07:09 vm3849819.firstbyte.club sudo[1361307]:   devops : a password is required ; TTY=pts/0 ; PWD=/home/devops ; USER=root ; COMMAND=/usr/bin/true

@@ -1,0 +1,18 @@
+### sudo stat /var/log/btmp /var/log/wtmp /var/log/auth.log 2>/dev/null || true
+  File: /var/log/btmp
+  Size: 541277568 	Blocks: 1057312    IO Block: 4096   regular file
+Device: 253,1	Inode: 14811       Links: 1
+Access: (0660/-rw-rw----)  Uid: (    0/    root)   Gid: (   43/    utmp)
+Access: 2025-04-03 11:14:30.582047272 +0000
+Modify: 2026-06-15 05:27:35.101995452 +0000
+Change: 2026-06-15 05:27:35.101995452 +0000
+ Birth: 2025-04-03 11:22:04.795670845 +0000
+  File: /var/log/wtmp
+  Size: 70272     	Blocks: 152        IO Block: 4096   regular file
+Device: 253,1	Inode: 14810       Links: 1
+Access: (0664/-rw-rw-r--)  Uid: (    0/    root)   Gid: (   43/    utmp)
+Access: 2026-05-22 04:32:12.903010971 +0000
+Modify: 2026-06-15 05:15:11.472249360 +0000
+Change: 2026-06-15 05:15:11.472249360 +0000
+ Birth: 2025-04-03 11:22:04.794670843 +0000
+EXIT:0

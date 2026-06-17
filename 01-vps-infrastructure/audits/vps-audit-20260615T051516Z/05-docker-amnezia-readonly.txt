@@ -1,0 +1,21 @@
+### docker ps --format table
+NAMES          IMAGE          STATUS                  PORTS
+amnezia-awg2   amnezia-awg2   Up 5 weeks              0.0.0.0:34367->34367/udp, [::]:34367->34367/udp
+amnezia-dns    amnezia-dns    Up 2 months (healthy)   53/tcp, 53/udp
+amnezia-awg    amnezia-awg    Up 4 months             0.0.0.0:42817->42817/udp, [::]:42817->42817/udp
+
+### docker stats --no-stream
+CONTAINER ID   NAME           CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O        PIDS
+a69e84407ac7   amnezia-awg2   0.55%     37.58MiB / 1.922GiB   1.91%     277GB / 287GB     160MB / 28.7kB   18
+a74e3fe17faa   amnezia-dns    0.00%     27.29MiB / 1.922GiB   1.39%     960MB / 379MB     262MB / 20.5MB   1
+7f558ff770e0   amnezia-awg    0.21%     323MiB / 1.922GiB     16.41%    4.62TB / 4.81TB   384MB / 12.3kB   17
+
+### docker network ls
+NETWORK ID     NAME              DRIVER    SCOPE
+3fffa333f4ab   amnezia-dns-net   bridge    local
+2678de97a348   bridge            bridge    local
+4be377b6cee2   host              host      local
+e941e632a6ec   none              null      local
+
+### docker network inspect amnezia-dns-net --format '{{json .IPAM.Config}} {{json .Containers}}' || true
+[{"Subnet":"172.29.172.0/24","IPRange":"","Gateway":""}] {"7f558ff770e0a5f65e63560cdedbe6d27f80019bd5807becbce161c7c5a2bf83":{"Name":"amnezia-awg","EndpointID":"bd45019d1abbe9c369db06b86c8df56d42e4e7f57386a796f68274367d378007","MacAddress":"2a:99:55:1f:ed:68","IPv4Address":"172.29.172.2/24","IPv6Address":""},"a69e84407ac7734a5146a66a610b9f87eb5f5693f525fe2f34126ff1623c91ca":{"Name":"amnezia-awg2","EndpointID":"ffa8d7a2246af2d1fb38e5418c8472e9f3a07203900de9413e834739ee16a848","MacAddress":"d2:a9:61:78:a1:45","IPv4Address":"172.29.172.3/24","IPv6Address":""},"a74e3fe17faa4e719476618db7c714bb4495dffbd25d0763335738716ef73d6e":{"Name":"amnezia-dns","EndpointID":"2d3ed88b5246998a93cacd5d8f40e7182be2aa72db2095cdda83f3d766e54c7a","MacAddress":"8e:b3:c9:9d:9a:f5","IPv4Address":"172.29.172.254/24","IPv6Address":""}}

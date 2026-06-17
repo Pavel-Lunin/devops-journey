@@ -1,0 +1,12 @@
+### curl -fsSI http://127.0.0.1:8080/ || true
+HTTP/1.1 200 OK
+Date: Mon, 15 Jun 2026 05:23:57 GMT
+Server: Apache/2.4.58 (Ubuntu)
+Last-Modified: Fri, 08 May 2026 11:16:36 GMT
+ETag: "903-6514c87b5b475"
+Accept-Ranges: bytes
+Content-Length: 2307
+Vary: Accept-Encoding
+Content-Type: text/html
+
+EXIT:0

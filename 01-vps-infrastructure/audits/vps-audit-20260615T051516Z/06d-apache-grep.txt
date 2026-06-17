@@ -1,0 +1,17 @@
+### sudo grep apache Listen/VirtualHost/DocumentRoot/ServerName
+/etc/apache2/ports.conf:2:# have to change the VirtualHost statement in
+/etc/apache2/ports.conf:5:Listen 8080
+/etc/apache2/ports.conf:6:Listen 8081
+/etc/apache2/ports.conf:7:Listen 8082
+/etc/apache2/ports.conf:10:	Listen 443
+/etc/apache2/ports.conf:14:	Listen 443
+/etc/apache2/sites-enabled/8080.conf:1:<VirtualHost *:8080>
+/etc/apache2/sites-enabled/8080.conf:3:    DocumentRoot /var/www/html
+/etc/apache2/sites-enabled/8080.conf:13:</VirtualHost>
+/etc/apache2/sites-enabled/8081.conf:1:<VirtualHost *:8081>
+/etc/apache2/sites-enabled/8081.conf:3:    DocumentRoot /var/www/html
+/etc/apache2/sites-enabled/8081.conf:13:</VirtualHost>
+/etc/apache2/sites-enabled/8082.conf:1:<VirtualHost *:8082>
+/etc/apache2/sites-enabled/8082.conf:3:    DocumentRoot /var/www/html
+/etc/apache2/sites-enabled/8082.conf:13:</VirtualHost>
+EXIT:0

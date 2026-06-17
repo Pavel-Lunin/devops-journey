@@ -1,0 +1,11 @@
+### sudo du -h -d1 /var/log 2>/dev/null | sort -h
+4.0K	/var/log/dist-upgrade
+4.0K	/var/log/private
+16K	/var/log/fate-bot
+284K	/var/log/apt
+376K	/var/log/unattended-upgrades
+1.2M	/var/log/apache2
+4.7M	/var/log/nginx
+1.8G	/var/log/journal
+2.4G	/var/log
+EXIT:0 0

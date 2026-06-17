@@ -1,0 +1,46 @@
+# /etc/sudoers.d/devops-codex
+# Minimal NOPASSWD for controlled diagnostics and safe reloads only.
+#
+# Validate with:
+#   sudo visudo -cf /etc/sudoers.d/devops-codex
+#
+# Remove when not actively needed:
+#   sudo rm /etc/sudoers.d/devops-codex
+#   sudo -k
+
+Cmnd_Alias VPS_CONFIG_TESTS = \
+    /usr/sbin/nginx -t, \
+    /usr/sbin/apachectl configtest, \
+    /usr/sbin/sshd -t -f /etc/ssh/sshd_config
+
+Cmnd_Alias VPS_SERVICE_STATUS = \
+    /usr/bin/systemctl status ssh --no-pager -l, \
+    /usr/bin/systemctl status nginx --no-pager -l, \
+    /usr/bin/systemctl status apache2 --no-pager -l, \
+    /usr/bin/systemctl status docker --no-pager -l, \
+    /usr/bin/systemctl status fail2ban --no-pager -l, \
+    /usr/bin/systemctl status pm2-devops --no-pager -l, \
+    /usr/bin/systemctl --failed --no-pager
+
+Cmnd_Alias VPS_LOG_READ = \
+    /usr/bin/journalctl -u ssh --no-pager -n 200, \
+    /usr/bin/journalctl -u nginx --no-pager -n 200, \
+    /usr/bin/journalctl -u apache2 --no-pager -n 200, \
+    /usr/bin/journalctl -u docker --no-pager -n 200, \
+    /usr/bin/journalctl -u fail2ban --no-pager -n 200, \
+    /usr/bin/journalctl -u pm2-devops --no-pager -n 200, \
+    /usr/bin/journalctl -p warning -b --no-pager -n 300
+
+Cmnd_Alias VPS_NETWORK_READ = \
+    /usr/sbin/ufw status verbose, \
+    /usr/sbin/iptables -S, \
+    /usr/sbin/iptables -t nat -S, \
+    /usr/sbin/iptables -S DOCKER-USER
+
+Cmnd_Alias VPS_SAFE_RELOAD = \
+    /usr/bin/systemctl reload nginx, \
+    /usr/bin/systemctl reload apache2, \
+    /usr/bin/systemctl reload ssh
+
+devops ALL=(root) NOPASSWD: VPS_CONFIG_TESTS, VPS_SERVICE_STATUS, VPS_LOG_READ, VPS_NETWORK_READ, VPS_SAFE_RELOAD
+

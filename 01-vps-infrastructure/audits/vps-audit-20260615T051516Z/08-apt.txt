@@ -1,0 +1,91 @@
+### sudo apt-get update
+Get:1 http://security.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+Hit:2 http://archive.ubuntu.com/ubuntu noble InRelease
+Get:3 http://archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+Get:4 http://archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+Get:5 http://security.ubuntu.com/ubuntu noble-security/main amd64 Packages [849 kB]
+Get:6 http://security.ubuntu.com/ubuntu noble-security/main Translation-en [183 kB]
+Get:7 http://security.ubuntu.com/ubuntu noble-security/universe amd64 Packages [1154 kB]
+Get:8 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [1112 kB]
+Get:9 http://security.ubuntu.com/ubuntu noble-security/universe Translation-en [226 kB]
+Get:10 http://security.ubuntu.com/ubuntu noble-security/restricted amd64 Packages [1232 kB]
+Get:11 http://archive.ubuntu.com/ubuntu noble-updates/main Translation-en [267 kB]
+Get:12 http://archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [1656 kB]
+Get:13 http://security.ubuntu.com/ubuntu noble-security/restricted Translation-en [286 kB]
+Get:14 http://security.ubuntu.com/ubuntu noble-security/multiverse amd64 Packages [35.0 kB]
+Get:15 http://security.ubuntu.com/ubuntu noble-security/multiverse Translation-en [8368 B]
+Get:16 http://archive.ubuntu.com/ubuntu noble-updates/universe Translation-en [326 kB]
+Get:17 http://archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Packages [1318 kB]
+Get:18 http://archive.ubuntu.com/ubuntu noble-updates/restricted Translation-en [303 kB]
+Get:19 http://archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 Packages [40.4 kB]
+Get:20 http://archive.ubuntu.com/ubuntu noble-updates/multiverse Translation-en [10.5 kB]
+Fetched 9383 kB in 2s (4082 kB/s)
+Reading package lists...
+EXIT:0
+Listing...
+apparmor/noble-updates 4.0.1really4.0.1-0ubuntu0.24.04.7 amd64 [upgradable from: 4.0.1really4.0.1-0ubuntu0.24.04.5]
+base-files/noble-updates 13ubuntu10.4 amd64 [upgradable from: 13ubuntu10.3]
+cloud-init/noble-updates 26.1-0ubuntu1~24.04.1 all [upgradable from: 25.2-0ubuntu1~24.04.1]
+containerd/noble-updates 2.2.1-0ubuntu1~24.04.2 amd64 [upgradable from: 1.7.28-0ubuntu1~24.04.2]
+coreutils/noble-updates 9.4-3ubuntu6.2 amd64 [upgradable from: 9.4-3ubuntu6.1]
+initramfs-tools-bin/noble-updates 0.142ubuntu25.8 amd64 [upgradable from: 0.142ubuntu25.5]
+initramfs-tools-core/noble-updates 0.142ubuntu25.8 all [upgradable from: 0.142ubuntu25.5]
+initramfs-tools/noble-updates 0.142ubuntu25.8 all [upgradable from: 0.142ubuntu25.5]
+iproute2/noble-updates 6.1.0-1ubuntu6.3 amd64 [upgradable from: 6.1.0-1ubuntu6.2]
+libapparmor1/noble-updates 4.0.1really4.0.1-0ubuntu0.24.04.7 amd64 [upgradable from: 4.0.1really4.0.1-0ubuntu0.24.04.5]
+libdrm-common/noble-updates 2.4.125-1ubuntu0.1~24.04.1 all [upgradable from: 2.4.122-1~ubuntu0.24.04.1]
+libdrm2/noble-updates 2.4.125-1ubuntu0.1~24.04.1 amd64 [upgradable from: 2.4.122-1~ubuntu0.24.04.1]
+libldap2/noble-updates 2.6.10+dfsg-0ubuntu0.24.04.1 amd64 [upgradable from: 2.6.7+dfsg-1~exp1ubuntu8.2]
+libnetplan1/noble-updates 1.1.2-8ubuntu1~24.04.2 amd64 [upgradable from: 1.1.2-8ubuntu1~24.04.1]
+libnftables1/noble-updates 1.0.9-1ubuntu0.1 amd64 [upgradable from: 1.0.9-1build1]
+linux-base/noble-updates 4.5ubuntu9+24.04.2 all [upgradable from: 4.5ubuntu9+24.04.1]
+netplan-generator/noble-updates 1.1.2-8ubuntu1~24.04.2 amd64 [upgradable from: 1.1.2-8ubuntu1~24.04.1]
+netplan.io/noble-updates 1.1.2-8ubuntu1~24.04.2 amd64 [upgradable from: 1.1.2-8ubuntu1~24.04.1]
+nftables/noble-updates 1.0.9-1ubuntu0.1 amd64 [upgradable from: 1.0.9-1build1]
+python-apt-common/noble-updates 2.7.7ubuntu5.2 all [upgradable from: 2.7.7ubuntu5.1]
+python3-apt/noble-updates 2.7.7ubuntu5.2 amd64 [upgradable from: 2.7.7ubuntu5.1]
+python3-netplan/noble-updates 1.1.2-8ubuntu1~24.04.2 amd64 [upgradable from: 1.1.2-8ubuntu1~24.04.1]
+runc/noble-updates 1.3.4-0ubuntu1~24.04.1 amd64 [upgradable from: 1.3.3-0ubuntu1~24.04.3]
+snapd/noble-updates 2.75.2+ubuntu24.04 amd64 [upgradable from: 2.73+ubuntu24.04.2]
+ubuntu-drivers-common/noble-updates 1:0.9.7.6ubuntu3.7 amd64 [upgradable from: 1:0.9.7.6ubuntu3.5]
+ubuntu-pro-client/noble-updates 37.2ubuntu~24.04 amd64 [upgradable from: 37.1ubuntu0~24.04]
+apparmor/noble-updates 4.0.1really4.0.1-0ubuntu0.24.04.7 amd64 [upgradable from: 4.0.1really4.0.1-0ubuntu0.24.04.5]
+containerd/noble-updates 2.2.1-0ubuntu1~24.04.2 amd64 [upgradable from: 1.7.28-0ubuntu1~24.04.2]
+libapparmor1/noble-updates 4.0.1really4.0.1-0ubuntu0.24.04.7 amd64 [upgradable from: 4.0.1really4.0.1-0ubuntu0.24.04.5]
+runc/noble-updates 1.3.4-0ubuntu1~24.04.1 amd64 [upgradable from: 1.3.3-0ubuntu1~24.04.3]
+### systemctl list-timers --all | grep -E 'apt|unattended' || true
+Mon 2026-06-15 05:35:26 UTC     9min Sun 2026-06-14 06:52:46 UTC      22h ago apt-daily.timer              apt-daily.service
+Mon 2026-06-15 06:49:12 UTC 1h 23min Sun 2026-06-14 06:49:38 UTC      22h ago apt-daily-upgrade.timer      apt-daily-upgrade.service
+### grep apt auto config
+/etc/apt/apt.conf.d/50unattended-upgrades:6:Unattended-Upgrade::Allowed-Origins {
+/etc/apt/apt.conf.d/50unattended-upgrades:11:	// available, the policy for updates is such that unattended-upgrades
+/etc/apt/apt.conf.d/50unattended-upgrades:21:Unattended-Upgrade::Package-Blacklist {
+/etc/apt/apt.conf.d/50unattended-upgrades:44:Unattended-Upgrade::DevRelease "auto";
+/etc/apt/apt.conf.d/50unattended-upgrades:47:// unattended-upgrades will automatically run 
+/etc/apt/apt.conf.d/50unattended-upgrades:50://Unattended-Upgrade::AutoFixInterruptedDpkg "true";
+/etc/apt/apt.conf.d/50unattended-upgrades:56://Unattended-Upgrade::MinimalSteps "true";
+/etc/apt/apt.conf.d/50unattended-upgrades:61:// Unattended-upgrades increases logind's InhibitDelayMaxSec to 30s.
+/etc/apt/apt.conf.d/50unattended-upgrades:62:// This allows more time for unattended-upgrades to shut down gracefully
+/etc/apt/apt.conf.d/50unattended-upgrades:67://Unattended-Upgrade::InstallOnShutdown "false";
+/etc/apt/apt.conf.d/50unattended-upgrades:73://Unattended-Upgrade::Mail "";
+/etc/apt/apt.conf.d/50unattended-upgrades:79://Unattended-Upgrade::MailReport "on-change";
+/etc/apt/apt.conf.d/50unattended-upgrades:83://Unattended-Upgrade::Remove-Unused-Kernel-Packages "true";
+/etc/apt/apt.conf.d/50unattended-upgrades:86://Unattended-Upgrade::Remove-New-Unused-Dependencies "true";
+/etc/apt/apt.conf.d/50unattended-upgrades:90://Unattended-Upgrade::Remove-Unused-Dependencies "false";
+/etc/apt/apt.conf.d/50unattended-upgrades:94://Unattended-Upgrade::Automatic-Reboot "false";
+/etc/apt/apt.conf.d/50unattended-upgrades:97:// when Unattended-Upgrade::Automatic-Reboot is set to true
+/etc/apt/apt.conf.d/50unattended-upgrades:98://Unattended-Upgrade::Automatic-Reboot-WithUsers "true";
+/etc/apt/apt.conf.d/50unattended-upgrades:103://Unattended-Upgrade::Automatic-Reboot-Time "02:00";
+/etc/apt/apt.conf.d/50unattended-upgrades:110:// Unattended-Upgrade::SyslogEnable "false";
+/etc/apt/apt.conf.d/50unattended-upgrades:113:// Unattended-Upgrade::SyslogFacility "daemon";
+/etc/apt/apt.conf.d/50unattended-upgrades:117:// Unattended-Upgrade::OnlyOnACPower "true";
+/etc/apt/apt.conf.d/50unattended-upgrades:121:// Unattended-Upgrade::Skip-Updates-On-Metered-Connections "true";
+/etc/apt/apt.conf.d/50unattended-upgrades:124:// Unattended-Upgrade::Verbose "false";
+/etc/apt/apt.conf.d/50unattended-upgrades:126:// Print debugging information both in unattended-upgrades and
+/etc/apt/apt.conf.d/50unattended-upgrades:127:// in unattended-upgrade-shutdown
+/etc/apt/apt.conf.d/50unattended-upgrades:128:// Unattended-Upgrade::Debug "false";
+/etc/apt/apt.conf.d/50unattended-upgrades:131:// Unattended-Upgrade::Allow-downgrade "false";
+/etc/apt/apt.conf.d/50unattended-upgrades:140:// Disabling the fallback speeds up unattended-upgrades when there are
+/etc/apt/apt.conf.d/50unattended-upgrades:143:// Unattended-Upgrade::Allow-APT-Mark-Fallback "true";
+/etc/apt/apt.conf.d/20auto-upgrades:1:APT::Periodic::Update-Package-Lists "1";
+/etc/apt/apt.conf.d/20auto-upgrades:2:APT::Periodic::Unattended-Upgrade "1";

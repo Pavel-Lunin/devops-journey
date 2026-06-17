@@ -1,0 +1,24 @@
+### sudo apt-get update
+Get:1 http://security.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+Hit:2 http://archive.ubuntu.com/ubuntu noble InRelease
+Get:3 http://archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+Get:4 http://archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+Get:5 http://security.ubuntu.com/ubuntu noble-security/main amd64 Packages [849 kB]
+Get:6 http://security.ubuntu.com/ubuntu noble-security/main Translation-en [183 kB]
+Get:7 http://security.ubuntu.com/ubuntu noble-security/universe amd64 Packages [1154 kB]
+Get:8 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [1112 kB]
+Get:9 http://security.ubuntu.com/ubuntu noble-security/universe Translation-en [226 kB]
+Get:10 http://security.ubuntu.com/ubuntu noble-security/restricted amd64 Packages [1232 kB]
+Get:11 http://archive.ubuntu.com/ubuntu noble-updates/main Translation-en [267 kB]
+Get:12 http://archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [1656 kB]
+Get:13 http://security.ubuntu.com/ubuntu noble-security/restricted Translation-en [286 kB]
+Get:14 http://security.ubuntu.com/ubuntu noble-security/multiverse amd64 Packages [35.0 kB]
+Get:15 http://security.ubuntu.com/ubuntu noble-security/multiverse Translation-en [8368 B]
+Get:16 http://archive.ubuntu.com/ubuntu noble-updates/universe Translation-en [326 kB]
+Get:17 http://archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Packages [1318 kB]
+Get:18 http://archive.ubuntu.com/ubuntu noble-updates/restricted Translation-en [303 kB]
+Get:19 http://archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 Packages [40.4 kB]
+Get:20 http://archive.ubuntu.com/ubuntu noble-updates/multiverse Translation-en [10.5 kB]
+Fetched 9383 kB in 2s (4082 kB/s)
+Reading package lists...
+EXIT:0

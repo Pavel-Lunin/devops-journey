@@ -1,0 +1,5 @@
+### ip route
+default via 104.128.138.1 dev ens3 proto static 
+104.128.138.0/24 dev ens3 proto kernel scope link src 104.128.138.246 
+172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 
+172.29.172.0/24 dev amn0 proto kernel scope link src 172.29.172.1 

@@ -1,0 +1,19 @@
+### ss -tulpen
+Netid State  Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess                                                                                                                            
+udp   UNCONN 0      0         127.0.0.54:53         0.0.0.0:*    uid:992 ino:40055204 sk:24 cgroup:/system.slice/systemd-resolved.service <->                                                      
+udp   UNCONN 0      0      127.0.0.53%lo:53         0.0.0.0:*    uid:992 ino:40055202 sk:25 cgroup:/system.slice/systemd-resolved.service <->                                                      
+udp   UNCONN 0      0            0.0.0.0:34367      0.0.0.0:*    ino:28614797 sk:1007 cgroup:/system.slice/docker.service <->                                                                      
+udp   UNCONN 0      0            0.0.0.0:42817      0.0.0.0:*    ino:850303 sk:1001 cgroup:/system.slice/docker.service <->                                                                        
+udp   UNCONN 0      0               [::]:34367         [::]:*    ino:28614798 sk:1008 cgroup:/system.slice/docker.service v6only:1 <->                                                             
+udp   UNCONN 0      0               [::]:42817         [::]:*    ino:850304 sk:1002 cgroup:/system.slice/docker.service v6only:1 <->                                                               
+tcp   LISTEN 0      4096   127.0.0.53%lo:53         0.0.0.0:*    uid:992 ino:40055203 sk:26 cgroup:/system.slice/systemd-resolved.service <->                                                      
+tcp   LISTEN 0      4096       127.0.0.1:24297      0.0.0.0:*    ino:204048 sk:6 cgroup:/system.slice/containerd.service <->                                                                       
+tcp   LISTEN 0      4096      127.0.0.54:53         0.0.0.0:*    uid:992 ino:40055205 sk:27 cgroup:/system.slice/systemd-resolved.service <->                                                      
+tcp   LISTEN 0      128        127.0.0.1:11437      0.0.0.0:*    users:(("code-f6cfa2ea24",pid=4025830,fd=12)) uid:1000 ino:33830764 sk:20 cgroup:/user.slice/user-1000.slice/session-619.scope <->
+tcp   LISTEN 0      128          0.0.0.0:22         0.0.0.0:*    ino:40643056 sk:28 cgroup:/system.slice/ssh.service <->                                                                           
+tcp   LISTEN 0      511          0.0.0.0:80         0.0.0.0:*    ino:40340228 sk:29 cgroup:/system.slice/nginx.service <->                                                                         
+tcp   LISTEN 0      511                *:8082             *:*    ino:38907283 sk:2a cgroup:/system.slice/apache2.service v6only:0 <->                                                              
+tcp   LISTEN 0      511                *:8080             *:*    ino:38907275 sk:2b cgroup:/system.slice/apache2.service v6only:0 <->                                                              
+tcp   LISTEN 0      511                *:8081             *:*    ino:38907279 sk:2c cgroup:/system.slice/apache2.service v6only:0 <->                                                              
+tcp   LISTEN 0      128             [::]:22            [::]:*    ino:40643058 sk:2d cgroup:/system.slice/ssh.service v6only:1 <->                                                                  
+tcp   LISTEN 0      511             [::]:80            [::]:*    ino:40340229 sk:2e cgroup:/system.slice/nginx.service v6only:1 <->                                                                

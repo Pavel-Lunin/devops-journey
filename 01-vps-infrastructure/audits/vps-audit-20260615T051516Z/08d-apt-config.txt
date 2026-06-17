@@ -1,0 +1,33 @@
+### grep apt auto config
+/etc/apt/apt.conf.d/50unattended-upgrades:6:Unattended-Upgrade::Allowed-Origins {
+/etc/apt/apt.conf.d/50unattended-upgrades:11:	// available, the policy for updates is such that unattended-upgrades
+/etc/apt/apt.conf.d/50unattended-upgrades:21:Unattended-Upgrade::Package-Blacklist {
+/etc/apt/apt.conf.d/50unattended-upgrades:44:Unattended-Upgrade::DevRelease "auto";
+/etc/apt/apt.conf.d/50unattended-upgrades:47:// unattended-upgrades will automatically run 
+/etc/apt/apt.conf.d/50unattended-upgrades:50://Unattended-Upgrade::AutoFixInterruptedDpkg "true";
+/etc/apt/apt.conf.d/50unattended-upgrades:56://Unattended-Upgrade::MinimalSteps "true";
+/etc/apt/apt.conf.d/50unattended-upgrades:61:// Unattended-upgrades increases logind's InhibitDelayMaxSec to 30s.
+/etc/apt/apt.conf.d/50unattended-upgrades:62:// This allows more time for unattended-upgrades to shut down gracefully
+/etc/apt/apt.conf.d/50unattended-upgrades:67://Unattended-Upgrade::InstallOnShutdown "false";
+/etc/apt/apt.conf.d/50unattended-upgrades:73://Unattended-Upgrade::Mail "";
+/etc/apt/apt.conf.d/50unattended-upgrades:79://Unattended-Upgrade::MailReport "on-change";
+/etc/apt/apt.conf.d/50unattended-upgrades:83://Unattended-Upgrade::Remove-Unused-Kernel-Packages "true";
+/etc/apt/apt.conf.d/50unattended-upgrades:86://Unattended-Upgrade::Remove-New-Unused-Dependencies "true";
+/etc/apt/apt.conf.d/50unattended-upgrades:90://Unattended-Upgrade::Remove-Unused-Dependencies "false";
+/etc/apt/apt.conf.d/50unattended-upgrades:94://Unattended-Upgrade::Automatic-Reboot "false";
+/etc/apt/apt.conf.d/50unattended-upgrades:97:// when Unattended-Upgrade::Automatic-Reboot is set to true
+/etc/apt/apt.conf.d/50unattended-upgrades:98://Unattended-Upgrade::Automatic-Reboot-WithUsers "true";
+/etc/apt/apt.conf.d/50unattended-upgrades:103://Unattended-Upgrade::Automatic-Reboot-Time "02:00";
+/etc/apt/apt.conf.d/50unattended-upgrades:110:// Unattended-Upgrade::SyslogEnable "false";
+/etc/apt/apt.conf.d/50unattended-upgrades:113:// Unattended-Upgrade::SyslogFacility "daemon";
+/etc/apt/apt.conf.d/50unattended-upgrades:117:// Unattended-Upgrade::OnlyOnACPower "true";
+/etc/apt/apt.conf.d/50unattended-upgrades:121:// Unattended-Upgrade::Skip-Updates-On-Metered-Connections "true";
+/etc/apt/apt.conf.d/50unattended-upgrades:124:// Unattended-Upgrade::Verbose "false";
+/etc/apt/apt.conf.d/50unattended-upgrades:126:// Print debugging information both in unattended-upgrades and
+/etc/apt/apt.conf.d/50unattended-upgrades:127:// in unattended-upgrade-shutdown
+/etc/apt/apt.conf.d/50unattended-upgrades:128:// Unattended-Upgrade::Debug "false";
+/etc/apt/apt.conf.d/50unattended-upgrades:131:// Unattended-Upgrade::Allow-downgrade "false";
+/etc/apt/apt.conf.d/50unattended-upgrades:140:// Disabling the fallback speeds up unattended-upgrades when there are
+/etc/apt/apt.conf.d/50unattended-upgrades:143:// Unattended-Upgrade::Allow-APT-Mark-Fallback "true";
+/etc/apt/apt.conf.d/20auto-upgrades:1:APT::Periodic::Update-Package-Lists "1";
+/etc/apt/apt.conf.d/20auto-upgrades:2:APT::Periodic::Unattended-Upgrade "1";

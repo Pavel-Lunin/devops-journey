@@ -1,0 +1,16 @@
+### sudo grep nginx server_name/listen/proxy_pass/upstream
+/etc/nginx/sites-enabled/upstream:1:upstream apache2 {
+/etc/nginx/sites-enabled/default:22:	listen 80 default_server;
+/etc/nginx/sites-enabled/default:23:	listen [::]:80 default_server;
+/etc/nginx/sites-enabled/default:27:	# listen 443 ssl default_server;
+/etc/nginx/sites-enabled/default:28:	# listen [::]:443 ssl default_server;
+/etc/nginx/sites-enabled/default:46:	server_name _;
+/etc/nginx/sites-enabled/default:49:		proxy_pass http://apache2;
+/etc/nginx/sites-enabled/default:81:#	listen 80;
+/etc/nginx/sites-enabled/default:82:#	listen [::]:80;
+/etc/nginx/sites-enabled/default:84:#	server_name example.com;
+/etc/nginx/nginx.conf:23:	# server_names_hash_bucket_size 64;
+/etc/nginx/nginx.conf:24:	# server_name_in_redirect off;
+/etc/nginx/nginx.conf:73:#		listen     localhost:110;
+/etc/nginx/nginx.conf:79:#		listen     localhost:143;
+EXIT:0
