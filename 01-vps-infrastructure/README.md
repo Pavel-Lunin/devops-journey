@@ -65,7 +65,7 @@
 
 Минимальный набор шагов на чистой Ubuntu 24.04 (high-level):
 
-1. Базовый hardening: создать non-root sudoers, развернуть SSH-ключи, перевести SSH на key-only доступ и staged-отключение root login (на действующем сервере `PasswordAuthentication` и `PermitRootLogin` сейчас включены — см. раздел *What I learned*).
+1. Базовый hardening: создать non-root sudoers, развернуть SSH-ключи, перевести SSH на key-only доступ и staged-отключение root login.
 2. `apt install nginx apache2 ufw docker.io` + NVM + Node.js + `npm i -g pm2`.
 3. Apache: три vhost'а на 8080/8081/8082, в идеале на `127.0.0.1:*` вместо `*:*`.
 4. nginx: server-блок на :80 с `upstream` round-robin на три Apache-порта.
@@ -85,6 +85,7 @@
 | Использование RAM | ~793 MiB из 1.9 GiB; swapfile 2.0 GiB настроен |
 | Load average (1/5/15 min) | 0.22 / 0.12 / 0.07 |
 | Трафик через основной VPN endpoint | ~3.7 TB in / ~3.9 TB out за 3 месяца |
+| `/var/log/btmp` | weekly cleanup timer настроен; текущий файл обнулён, backup сохранён |
 | Установлено APT-пакетов | 360 |
 | Доступно обновлений | 26 (notable: `containerd`, `runc`, `apparmor`) |
 
@@ -98,8 +99,10 @@
 - **SSH-конфигурация была слабой — исправлено 2026-06-11:** исходно `PasswordAuthentication yes` + drop-in cloud-init с `PermitRootLogin yes` оставляли поверхность атаки. `/var/log/btmp` за время аптайма распух до **451 MB** неудачных попыток входа — наглядная иллюстрация, почему fail2ban + key-only доступ это не теория. Исправление выполнено staged: создан backup `/etc/ssh/sshd_config.bak.20260611T045928Z` и `/etc/ssh/sshd_config.d.bak.20260611T045928Z`, добавлен ранний drop-in `/etc/ssh/sshd_config.d/01-hardening.conf`, проверен `sshd -t`, применён `systemctl reload ssh` без restart. Финальный effective config: `PubkeyAuthentication yes`, `PasswordAuthentication no`, `KbdInteractiveAuthentication no`, `PermitRootLogin no`. Новый вход `devops` по ключу проверен, root SSH login отклоняется, временный `NOPASSWD` для `devops` удалён. `ufw`, Docker, `amn0` и UDP-порты AmneziaWG (`42817/udp`, `34367/udp`) не менялись.
 - **Apache торчит наружу** на портах 8080/8081/8082 (bind на `*`, не `127.0.0.1`). Архитектурно правильно — оставить наружу только nginx, бэкенд держать на loopback. Это правится одной строкой в `ports.conf`.
 - **Swap отсутствовал — исправлено 2026-06-18:** добавлен `/swapfile` на 2 GiB, включён через `swapon`, прописан в `/etc/fstab`. Reboot не выполнялся, Docker/AmneziaWG/UFW/routing не менялись.
-- **Journald занимал ~1.7–1.8G — исправлено 2026-06-18:** добавлен `/etc/systemd/journald.conf.d/10-retention.conf` (`SystemMaxUse=500M`, `SystemKeepFree=1G`, `MaxRetentionSec=30day`) и выполнен `journalctl --vacuum-size=500M`; `/var/log/journal` уменьшился до ~498M. `/var/log/btmp` всё ещё требует отдельного решения по ротации.
+- **Journald занимал ~1.7–1.8G — исправлено 2026-06-18:** добавлен `/etc/systemd/journald.conf.d/10-retention.conf` (`SystemMaxUse=500M`, `SystemKeepFree=1G`, `MaxRetentionSec=30day`) и выполнен `journalctl --vacuum-size=500M`; `/var/log/journal` уменьшился до ~498M.
+- **`/var/log/btmp` рос из-за SSH brute-force попыток — исправлено 2026-06-18:** создан root-owned oneshot `/etc/systemd/system/clear-btmp.service` и timer `/etc/systemd/system/clear-btmp.timer` (`Mon 05:30 UTC`, перед weekly email report). Первый запуск сделал backup `/var/log/btmp.backup.20260618T051520Z` и обнулил текущий `/var/log/btmp` с сохранением прав `root:utmp 0660`. Старые backup'и старше 35 дней удаляются скриптом `/usr/local/sbin/clear_btmp.sh`.
 - **PM2 autostart был в failed-state — исправлено 2026-06-17:** `pm2-devops.service` был `enabled` и `failed`, при этом PM2 apps (`fate-bot-production`, `fate-bot-staging`, `pm2-logrotate`) уже были `stopped`. Автозапуск отключён через `systemctl disable pm2-devops.service`, failed-state очищен через `systemctl reset-failed pm2-devops.service`; Docker, AmneziaWG, UFW и routing не менялись.
+- **`rc-local.service` был failed без полезной нагрузки — исправлено 2026-06-18:** `/etc/rc.local` содержал только `exit 0`, поэтому сервис отключён через `systemctl disable rc-local.service`, failed-state очищен через `systemctl reset-failed rc-local.service`.
 - **26 непримененных обновлений** (включая `containerd 1.7 → 2.2`, `runc`, `apparmor`). Docker/runtime updates нельзя делать вслепую на live VPN host — нужен maintenance window и rollback-план.
 - **userspace WireGuard** (`wireguard-go` через AmneziaWG) — отдельная категория знаний: модуль ядра `wireguard` не подгружен, всё работает в userspace внутри контейнеров с монтированием `/lib/modules`. Это компромисс ради DPI-resistance, но он стоит ~317 MiB RAM и ~8500 CPU-minutes за 3 месяца.
 
