@@ -82,7 +82,7 @@
 | Аптайм Apache | 13 дней (без рестартов после последнего конфига) |
 | Аптайм AmneziaWG (основной endpoint) | 3 месяца |
 | Использование диска (root ext4) | 7.2 G из 18 G (41%) |
-| Использование RAM | ~806 MiB из 1.9 GiB; **swap не настроен** |
+| Использование RAM | ~793 MiB из 1.9 GiB; swapfile 2.0 GiB настроен |
 | Load average (1/5/15 min) | 0.22 / 0.12 / 0.07 |
 | Трафик через основной VPN endpoint | ~3.7 TB in / ~3.9 TB out за 3 месяца |
 | Установлено APT-пакетов | 360 |
@@ -97,7 +97,8 @@
 - **TLS не настроен** — nginx слушает только :80, сертификата Let's Encrypt нет. Это первое, что нужно поднять (certbot + автообновление).
 - **SSH-конфигурация была слабой — исправлено 2026-06-11:** исходно `PasswordAuthentication yes` + drop-in cloud-init с `PermitRootLogin yes` оставляли поверхность атаки. `/var/log/btmp` за время аптайма распух до **451 MB** неудачных попыток входа — наглядная иллюстрация, почему fail2ban + key-only доступ это не теория. Исправление выполнено staged: создан backup `/etc/ssh/sshd_config.bak.20260611T045928Z` и `/etc/ssh/sshd_config.d.bak.20260611T045928Z`, добавлен ранний drop-in `/etc/ssh/sshd_config.d/01-hardening.conf`, проверен `sshd -t`, применён `systemctl reload ssh` без restart. Финальный effective config: `PubkeyAuthentication yes`, `PasswordAuthentication no`, `KbdInteractiveAuthentication no`, `PermitRootLogin no`. Новый вход `devops` по ключу проверен, root SSH login отклоняется, временный `NOPASSWD` для `devops` удалён. `ufw`, Docker, `amn0` и UDP-порты AmneziaWG (`42817/udp`, `34367/udp`) не менялись.
 - **Apache торчит наружу** на портах 8080/8081/8082 (bind на `*`, не `127.0.0.1`). Архитектурно правильно — оставить наружу только nginx, бэкенд держать на loopback. Это правится одной строкой в `ports.conf`.
-- **Swap отсутствует** при 1.9 GiB RAM. При пике (например, рост памяти у Node.js + AmneziaWG-userspace процессов) — гарантированный OOM-kill. Минимум 1–2 GiB swap-файла стоит добавить.
+- **Swap отсутствовал — исправлено 2026-06-18:** добавлен `/swapfile` на 2 GiB, включён через `swapon`, прописан в `/etc/fstab`. Reboot не выполнялся, Docker/AmneziaWG/UFW/routing не менялись.
+- **Journald занимал ~1.7–1.8G — исправлено 2026-06-18:** добавлен `/etc/systemd/journald.conf.d/10-retention.conf` (`SystemMaxUse=500M`, `SystemKeepFree=1G`, `MaxRetentionSec=30day`) и выполнен `journalctl --vacuum-size=500M`; `/var/log/journal` уменьшился до ~498M. `/var/log/btmp` всё ещё требует отдельного решения по ротации.
 - **PM2 autostart был в failed-state — исправлено 2026-06-17:** `pm2-devops.service` был `enabled` и `failed`, при этом PM2 apps (`fate-bot-production`, `fate-bot-staging`, `pm2-logrotate`) уже были `stopped`. Автозапуск отключён через `systemctl disable pm2-devops.service`, failed-state очищен через `systemctl reset-failed pm2-devops.service`; Docker, AmneziaWG, UFW и routing не менялись.
 - **26 непримененных обновлений** (включая `containerd 1.7 → 2.2`, `runc`, `apparmor`). Docker/runtime updates нельзя делать вслепую на live VPN host — нужен maintenance window и rollback-план.
 - **userspace WireGuard** (`wireguard-go` через AmneziaWG) — отдельная категория знаний: модуль ядра `wireguard` не подгружен, всё работает в userspace внутри контейнеров с монтированием `/lib/modules`. Это компромисс ради DPI-resistance, но он стоит ~317 MiB RAM и ~8500 CPU-minutes за 3 месяца.
