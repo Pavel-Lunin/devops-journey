@@ -55,7 +55,7 @@ Senior Mobile Engineer с 6 годами коммерческой разрабо
 | --- | --------------------------------------------------- | -------------- | ---------- | ---------------------------------------------------------------------------------- |
 | 01  | [VPS Infrastructure](./01-vps-infrastructure/)      | 🔄 In Progress | 1          | Документация существующего self-hosted VPS (nginx + apache + Amnezia VPN)          |
 | 02  | [Monitoring Stack](./02-monitoring-stack/)          | 📋 Planned     | 1          | Prometheus + Grafana + Node Exporter + Alertmanager для VPS                        |
-| 03  | [Docker RN Builder](./03-docker-rn-builder/)        | 📋 Planned     | 1          | Reproducible Docker image для сборки React Native (Android)                        |
+| 03  | [Docker RN Builder](./03-docker-rn-builder/)        | 🔄 In Progress | 1          | Docker course labs → reproducible React Native Android builder                     |
 | 04  | [Bash Toolkit](./04-bash-toolkit/)                  | 🔄 In Progress | 1          | Production-ready bash-скрипты автоматизации, ShellCheck-clean                      |
 | 05  | [Yandex Cloud Setup](./05-yandex-cloud-setup/)      | 📋 Planned     | 1          | Manual setup VPS-стека на Yandex Cloud (Compute, VPC, NLB, Object Storage)         |
 | 06  | [Terraform YC](./06-terraform-yc/)                  | 📋 Planned     | 2          | Тот же setup через Terraform с модулями и remote state                             |
