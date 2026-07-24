@@ -1,12 +1,12 @@
 import mysql from "mysql2";
 
-const MYSQL_HOST = process.env.MYSQL_HOST || "mysql";
-const MYSQL_PORT = process.env.MYSQL_PORT || "3306";
-const MYSQL_USER = process.env.MYSQL_USER || "root";
-const MYSQL_PASSWORD = process.env.MYSQL_PASSWORD || "password";
-const MYSQL_DATABASE = process.env.MYSQL_DATABASE || "admin";
+const MYSQL_HOST = process.env.MYSQL_HOST;
+const MYSQL_PORT = process.env.MYSQL_PORT;
+const MYSQL_USER = process.env.MYSQL_USER;
+const MYSQL_PASSWORD = process.env.MYSQL_PASSWORD;
+const MYSQL_DATABASE = process.env.MYSQL_DATABASE;
 
-console.log(`process.env.MYSQL_HOST`, process.env.MYSQL_HOST);
+console.log(`process.env`, process.env);
 
 const pool = mysql.createPool({
   connectionLimit: 100,
